@@ -4,33 +4,33 @@
 
 // Array of hipsterWords to be used for the game
 var hipsterWords = [
-    "skateboard",
-    "mixtape",
-    "unicorn",
-    "venmo",
-    "typewrite",
-    "cliche",
-    "forage",
-    "occupy",
-    "selfies",
-    "tofu",
-    "flannel",
-    "fam",
-    "vinyl",
-    "etsy",
-    "yoga",
-    "brewery",
-    "beer",
-    "meditation",
-    "pabst",
-    "bicycle",
-    "artisan",
-    "organic",
-    "distillery",
-    "pinterest",
-    "typewriter",
-    "aesthetic",
-    "cornhole"
+    "SKATEBOARD",
+    "MIXTAPE",
+    "UNICORN",
+    "VENMO",
+    "TYPEWRTIER",
+    "CLICHE",
+    "FORAGE",
+    "OCCUPY",
+    "SELFIES",
+    "TOFU",
+    "FLANNEL",
+    "FAM",
+    "VINYL",
+    "ETSY",
+    "YOGA",
+    "BREWERY",
+    "BEER",
+    "MEDITATION",
+    "PABST",
+    "BICYCLE",
+    "ARTISAN",
+    "ORGANIC",
+    "DISTILLERY",
+    "PINTEREST",
+    "TYPEWRITER",
+    "AESTHETIC",
+    "CORNHOLE"
 ];
 
 // Computer selects a random hipsterWord from our hipsterWords Array
@@ -69,15 +69,6 @@ function insertHipseterWord() {
     console.log(hipsterWordHidden);
 }
 
-// FUNCTION TO CHANGE LETTERS GUESSED CORRECTLY FROM "_" TO ACTUAL LETTER
-function insertCorrectlyGuessedLetter () {
-    for (var i = 0; i < hipsterWord.length; i++) {
-        if (letter === hipsterWord.charAt(i)) {
-            console.log(letter);
-        }
-    }
-}
-
 // Function to display wins
 function winsTracker() {
     document.querySelector("#wins").innerHTML = "Wins: " + wins;
@@ -86,33 +77,34 @@ function winsTracker() {
 // Function to show guesses remaining in current game
 function guessesRemainingTracker() {
     document.querySelector("#guessesRemaining").innerHTML = "Number of Guesses Remaining: " + guessesRemaining;
+    }``
+
+function lettersGuessedTracker() {
+    document.onkeyup = function(event) {
+        var letter = event.key.toUpperCase();
+
+        if (lettersGuessed.indexOf(letter) === -1) {
+            lettersGuessed.push(letter);
+            var newLetterDiv = document.createElement("div");                       // Create a <div> element
+            var lettersGuessedList = document.createTextNode(" " + letter + " ");   // Create a text node
+            newLetterDiv.appendChild(lettersGuessedList);                           // Append the text to <div>
+            document.getElementById("lettersGuessed").appendChild(newLetterDiv);
+            guessesRemaining--;
+            guessesRemainingTracker();
+        }
+    } 
 }
-    
 // MAIN PROCESS
 // ==============================================================================
 
+// Displays intial wins of zero
 winsTracker();
+
+// Displays computer generated amount of guesses to start based on word length
 guessesRemainingTracker();
+
+// Displays word hidden on the document for the start of the game
 insertHipseterWord();
 
-while (guessesRemaining > 0) {
-
-document.onkeyup = function(event) {
-
-    var letter = event.key.toLowerCase();
-        
-        for (var i = 0; i < hipsterWord.length; i++) {
-            if (letter === hipsterWord.charAt(i)) {
-                guessesRemaining--;
-                console.log(letter);
-                console.log(guessesRemaining);
-            // Tell program to reduce guesesRemaining by 1
-            // Tell program to change the letter from "_" to actual letter
-            }
-        }
-};
-
-
-
-
-}
+//Adds any letters already guessed to the document
+lettersGuessedTracker();
