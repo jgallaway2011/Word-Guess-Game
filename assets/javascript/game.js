@@ -59,11 +59,11 @@ console.log(guessesRemaining);
 function insertHipseterWord() {
     for ( var i = 0; i < hipsterWord.length; i++) {
         hipsterWordHidden.push(" _ ");
-        var newLetterDiv = document.createElement("div");                       // Create a <p> element
-        var hipsterLetterHidden = document.createTextNode(hipsterWordHidden[i]);       // Create a text node
-        newLetterDiv.appendChild(hipsterLetterHidden);                                     // Append the text to <p>
+        var newLetterDiv = document.createElement("div");                         // Create a <p> element
+        var hipsterLetterHidden = document.createTextNode(hipsterWordHidden[i]);  // Create a text node
+        newLetterDiv.appendChild(hipsterLetterHidden);                            // Append the text to <p>
         newLetterDiv.className = "hispterLetter" + i;
-        document.getElementById("currentWord").appendChild(newLetterDiv);                              // Append <p> to <body>
+        document.getElementById("currentWord").appendChild(newLetterDiv);         // Append <div> to currentWord div
         
     }
     console.log(hipsterWordHidden);
@@ -86,6 +86,8 @@ function lettersGuessedTracker() {
         for (var i= 0; i < hipsterWord.length; i++) {
             if (hipsterWord.charAt(i) === letter) {
                 hipsterWordHidden[i] = letter;
+                // Need to code a way for the letter changing out in the console to also show in the HTML document
+                // document.querySelector(".hipsterLetter" + i).innerHTML = letter;
             }
         }
         console.log(hipsterWordHidden);
@@ -95,11 +97,11 @@ function lettersGuessedTracker() {
             var newLetterDiv = document.createElement("div");                       // Create a <div> element
             var lettersGuessedList = document.createTextNode(" " + letter + " ");   // Create a text node
             newLetterDiv.appendChild(lettersGuessedList);                           // Append the text to <div>
-            document.getElementById("lettersGuessed").appendChild(newLetterDiv);
-            guessesRemaining--;
-            guessesRemainingTracker();
+            document.getElementById("lettersGuessed").appendChild(newLetterDiv);    // Append <div> to lettersGuessed div
+            guessesRemaining--;                                                     // Subtract guuesesRemaining by one
+            guessesRemainingTracker();                                              // Reprint to display gueses remaining
         } else {
-            alert("Letter already guessed!");
+            alert("Letter already guessed!");                                       //Alert user if letter guessed more than once
         }
     }
 }
@@ -120,3 +122,5 @@ insertHipseterWord();
 
 //Adds any letters already guessed to the document
 lettersGuessedTracker();
+
+// Need to code loop to restart came if win or if a lose.
