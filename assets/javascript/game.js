@@ -77,11 +77,18 @@ function winsTracker() {
 // Function to show guesses remaining in current game
 function guessesRemainingTracker() {
     document.querySelector("#guessesRemaining").innerHTML = "Number of Guesses Remaining: " + guessesRemaining;
-    }``
+  }
 
 function lettersGuessedTracker() {
     document.onkeyup = function(event) {
         var letter = event.key.toUpperCase();
+
+        for (var i= 0; i < hipsterWord.length; i++) {
+            if (hipsterWord.charAt(i) === letter) {
+                hipsterWordHidden[i] = letter;
+            }
+        }
+        console.log(hipsterWordHidden);
 
         if (lettersGuessed.indexOf(letter) === -1) {
             lettersGuessed.push(letter);
@@ -91,9 +98,14 @@ function lettersGuessedTracker() {
             document.getElementById("lettersGuessed").appendChild(newLetterDiv);
             guessesRemaining--;
             guessesRemainingTracker();
+        } else {
+            alert("Letter already guessed!");
         }
-    } 
+    }
 }
+
+
+
 // MAIN PROCESS
 // ==============================================================================
 
