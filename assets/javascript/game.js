@@ -8,7 +8,7 @@ var hipsterWords = [
     "MIXTAPE",
     "UNICORN",
     "VENMO",
-    "TYPEWRTIER",
+    "TYPEWRITER",
     "CLICHE",
     "FORAGE",
     "OCCUPY",
@@ -48,9 +48,6 @@ var hipsterWordHidden = [];
 // Empty array that will be used later to collect letters guessed by player
 var lettersGuessed = [];
 
-console.log(hipsterWord);
-console.log(wins);
-console.log(guessesRemaining);
 //====================================================================================================================
 
 // FUNCTIONS
@@ -59,14 +56,8 @@ console.log(guessesRemaining);
 function insertHipseterWord() {
     for ( var i = 0; i < hipsterWord.length; i++) {
         hipsterWordHidden.push(" _ ");
-        var newLetterDiv = document.createElement("div");                         // Create a <p> element
-        var hipsterLetterHidden = document.createTextNode(hipsterWordHidden[i]);  // Create a text node
-        newLetterDiv.appendChild(hipsterLetterHidden);                            // Append the text to <p>
-        newLetterDiv.className = "hispterLetter" + i;
-        document.getElementById("currentWord").appendChild(newLetterDiv);         // Append <div> to currentWord div
-        
     }
-    console.log(hipsterWordHidden);
+    document.getElementById("currentWord").innerHTML = hipsterWordHidden.join("  ");
 }
 
 // Function to display wins
@@ -86,22 +77,17 @@ function lettersGuessedTracker() {
         for (var i= 0; i < hipsterWord.length; i++) {
             if (hipsterWord.charAt(i) === letter) {
                 hipsterWordHidden[i] = letter;
-                // Need to code a way for the letter changing out in the console to also show in the HTML document
-                // document.querySelector(".hipsterLetter" + i).innerHTML = letter;
+                document.getElementById("currentWord").innerHTML = hipsterWordHidden.join("  ");
             }
         }
-        console.log(hipsterWordHidden);
 
-        if (lettersGuessed.indexOf(letter) === -1) {
-            lettersGuessed.push(letter);
-            var newLetterDiv = document.createElement("div");                       // Create a <div> element
-            var lettersGuessedList = document.createTextNode(" " + letter + " ");   // Create a text node
-            newLetterDiv.appendChild(lettersGuessedList);                           // Append the text to <div>
-            document.getElementById("lettersGuessed").appendChild(newLetterDiv);    // Append <div> to lettersGuessed div
-            guessesRemaining--;                                                     // Subtract guuesesRemaining by one
-            guessesRemainingTracker();                                              // Reprint to display gueses remaining
+        if (lettersGuessed.indexOf(letter) === -1) {                                                                          // Check if letter is in lettersGuessed Array
+            lettersGuessed.push(letter);                                                                                      // Insert letter in array if not guessed before
+            document.getElementById("lettersGuessed").innerHTML = "Letters Already Guessed: " + lettersGuessed.join("  "); 
+            guessesRemaining--;                                                                                               // Subtract guuesesRemaining by one
+            guessesRemainingTracker();                                                                                        // Reprint to display gueses remaining
         } else {
-            alert("Letter already guessed!");                                       //Alert user if letter guessed more than once
+            alert("Letter already guessed!");                                                                                 //Alert user if letter guessed more than once
         }
     }
 }
@@ -120,7 +106,19 @@ guessesRemainingTracker();
 // Displays word hidden on the document for the start of the game
 insertHipseterWord();
 
-//Adds any letters already guessed to the document
-lettersGuessedTracker();
+if (hipsterWordHidden.indexOf(" _ ") !== -1) {
 
-// Need to code loop to restart came if win or if a lose.
+    //Adds any letters already guessed to the document 
+      lettersGuessedTracker();
+
+} else if (guessesRemaining >= 0 && hipsterWordHidden.indexOf(" _ ") == -1) {
+
+    document.getElementById("currentWord").innerHTML = "You won!";
+    wins++;
+    winsTracker();
+
+} else {
+
+    document.getElementById("currentWord").innerHTML = "You lost! Try Again!";
+    insertHipseterWord();
+}
