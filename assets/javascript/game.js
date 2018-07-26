@@ -59,6 +59,7 @@ var hipsterWordDisplay = document.getElementById("currentWord");
 
 // Function to insert random word into game
 function insertHipseterWord() {
+    hipsterWordHidden = [];
     for (var i = 0; i < hipsterWord.length; i++) {                                                            
         hipsterWordHidden.push("  _  ");                                                                       
     }
@@ -124,8 +125,6 @@ document.onkeyup = function(event) {
         guessesRemainingTracker();
         lettersGuessed = [];
         document.getElementById("lettersGuessed").innerHTML = "Letters Already Guessed: " + lettersGuessed.join("  ");
-        
-
     } else if (guessesRemaining === 0 && hipsterWordHidden.indexOf("  _  ") !== -1) {
         document.getElementById("currentWord").innerHTML = "You lost!";
         losses++;
@@ -136,10 +135,6 @@ document.onkeyup = function(event) {
         guessesRemainingTracker();
         lettersGuessed = [];
         document.getElementById("lettersGuessed").innerHTML = "Letters Already Guessed: " + lettersGuessed.join("  ");
-
-    } else {
-       // Keep Guessing Letters
     }
-
 }
 
