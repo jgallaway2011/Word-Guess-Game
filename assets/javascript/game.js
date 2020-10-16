@@ -133,17 +133,6 @@ document.onkeyup = function (event) {
     var letter = event.key.toUpperCase();
     // Check if user selection is in Enlgish alphabet
     if (wordGuessGame.isLetter(letter)) {
-        // Loop through hipsterWord characters
-        for (var i = 0; i < wordGuessGame.hipsterWord.length; i++) {
-            // If character at index i is same as user selection then:
-            if (wordGuessGame.hipsterWord.charAt(i) === letter) {
-                // Set array value at index i equal to user selection
-                wordGuessGame.hipsterWordHidden[i] = letter;
-                // Update DOM to reflect user correctly guessed a letter
-                document.getElementById("currentWord").innerHTML = wordGuessGame.hipsterWordHidden.join("    ");
-            }
-        }
-
         // If user selection was not previously selected this round, then:
         if (wordGuessGame.lettersGuessed.indexOf(letter) === -1) {
             // Add user selection to lettersGuessed array
@@ -154,28 +143,37 @@ document.onkeyup = function (event) {
             wordGuessGame.guessesRemaining--;
             // Update DOM to reflect reduction in guessesReamining
             wordGuessGame.gameTracker();
-            // If user selection was previously selected this round, then:
+            // Loop through hipsterWord characters
+            for (var i = 0; i < wordGuessGame.hipsterWord.length; i++) {
+                // If character at index i is same as user selection then:
+                if (wordGuessGame.hipsterWord.charAt(i) === letter) {
+                    // Set array value at index i equal to user selection
+                    wordGuessGame.hipsterWordHidden[i] = letter;
+                    // Update DOM to reflect user correctly guessed a letter
+                    document.getElementById("currentWord").innerHTML = wordGuessGame.hipsterWordHidden.join("    ");
+                }
+            }
+
+            // If zero or more guesses remaining and all letters of hidden word guessed, then:
+            if (wordGuessGame.guessesRemaining >= 0 && wordGuessGame.hipsterWordHidden.indexOf("_") === -1) {
+                // Notify user that round was won
+                document.getElementById("currentWord").innerHTML = "You won!";
+                // Increase wins by 1
+                wordGuessGame.wins++;
+                // Start new round
+                wordGuessGame.initializeRound();
+                // If zero guesses remaining and not all letters of hidden word guessed, then:
+            } else if (wordGuessGame.guessesRemaining === 0 && wordGuessGame.hipsterWordHidden.indexOf("_") !== -1) {
+                // Notfiy user that the round was lost
+                document.getElementById("currentWord").innerHTML = "You lost!";
+                // Increase losses by 1
+                wordGuessGame.losses++;
+                // Start New Round
+                wordGuessGame.initializeRound();
+            }
         } else {
             // Alert user that this letter was already guessed
             alert("Letter already guessed!");
-        }
-
-        // If zero or more guesses remaining and all letters of hidden word guessed, then:
-        if (wordGuessGame.guessesRemaining >= 0 && wordGuessGame.hipsterWordHidden.indexOf("_") === -1) {
-            // Notify user that round was won
-            document.getElementById("currentWord").innerHTML = "You won!";
-            // Increase wins by 1
-            wordGuessGame.wins++;
-            // Start new round
-            wordGuessGame.initializeRound();
-            // If zero guesses remaining and not all letters of hidden word guessed, then:
-        } else if (wordGuessGame.guessesRemaining === 0 && wordGuessGame.hipsterWordHidden.indexOf("_") !== -1) {
-            // Notfiy user that the round was lost
-            document.getElementById("currentWord").innerHTML = "You lost!";
-            // Increase losses by 1
-            wordGuessGame.losses++;
-            // Start New Round
-            wordGuessGame.initializeRound();
         }
     }
 }
