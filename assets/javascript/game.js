@@ -177,4 +177,3 @@ document.onkeyup = function (event) {
         }
     }
 }
-
