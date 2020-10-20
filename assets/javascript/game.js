@@ -101,6 +101,9 @@ var wordGuessGame = {
         // Selects hipsterWord to start new round of game
         this.selectHipsterWord();
 
+        // Reset remaining guesses to 8
+        this.guessesRemaining = 8;
+
         // Displays updated wins, losses, and guesses remaining
         this.gameTracker();
 
@@ -115,9 +118,6 @@ var wordGuessGame = {
 
         // Reset incorrect guesses to zero
         this.numIncorrectGuesses = 0;
-
-        // Reset remaining guesses to 8
-        this.guessesRemaining = 8;
 
         // Reset Canvas
         hangmanCanvas.resetCanvas();
