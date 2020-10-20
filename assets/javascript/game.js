@@ -3,6 +3,9 @@
 // Word Guess Game
 //====================================================================================================================
 
+// IMPORTS
+import {hangmanCanvas} from "./canvas.js"
+
 // VARIABLES
 var hipsterWordDisplay = document.getElementById("currentWord");
 
@@ -57,7 +60,10 @@ var wordGuessGame = {
     hipsterWord: "",
 
     // To hold guesses remaining for selected word in each round of game
-    guessesRemaining: 0,
+    guessesRemaining: 8,
+
+    // To hold number of incorrect guesses
+    numIncorrectGuesses: 0,
 
     // Empty array that will hold " _ " for letters of randomly selected hipsterWord
     hipsterWordHidden: [],
@@ -67,12 +73,8 @@ var wordGuessGame = {
 
     // Method to select a random hipsterWord from the hipsterWords array
     selectHipsterWord: function () {
-        return this.hipsterWords[Math.floor(Math.random() * this.hipsterWords.length)];
-    },
-
-    // Method to calculate amount of guesses for random word chosen from the hipsterWords array
-    calculateGuessesRemaining: function () {
-        return Math.ceil(this.hipsterWord.length * 8 / 3);
+        var hipsterWordIndex = Math.floor(Math.random() * this.hipsterWords.length);
+        this.hipsterWord = this.hipsterWords.splice(hipsterWordIndex, 1)[0];
     },
 
     // Method to insert random word into game display with "_" instead of the letters
@@ -97,10 +99,7 @@ var wordGuessGame = {
     // Method to initialize new round of game
     initializeRound: function () {
         // Selects hipsterWord to start new round of game
-        this.hipsterWord = this.selectHipsterWord();
-
-        // Calculates intial number of guesses for hipsterWord selected
-        this.guessesRemaining = this.calculateGuessesRemaining(this.hipsterWord);
+        this.selectHipsterWord();
 
         // Displays updated wins, losses, and guesses remaining
         this.gameTracker();
@@ -113,6 +112,15 @@ var wordGuessGame = {
 
         // Display empty letters guessed for new round
         document.getElementById("lettersGuessed").innerHTML = "Letters Already Guessed: " + wordGuessGame.lettersGuessed.join("  ");
+
+        // Reset incorrect guesses to zero
+        this.numIncorrectGuesses = 0;
+
+        // Reset remaining guesses to 8
+        this.guessesRemaining = 8;
+
+        // Reset Canvas
+        hangmanCanvas.resetCanvas();
     },
 
     // Checks if user input is in the Enlgish alphabet
@@ -139,18 +147,45 @@ document.onkeyup = function (event) {
             wordGuessGame.lettersGuessed.push(letter);
             // Reflect user most recent selection in DOM
             document.getElementById("lettersGuessed").innerHTML = "Letters Already Guessed: " + wordGuessGame.lettersGuessed.join("  ");
-            // Reduce guessesReamining by 1
-            wordGuessGame.guessesRemaining--;
-            // Update DOM to reflect reduction in guessesReamining
-            wordGuessGame.gameTracker();
             // Loop through hipsterWord characters
-            for (var i = 0; i < wordGuessGame.hipsterWord.length; i++) {
-                // If character at index i is same as user selection then:
-                if (wordGuessGame.hipsterWord.charAt(i) === letter) {
-                    // Set array value at index i equal to user selection
-                    wordGuessGame.hipsterWordHidden[i] = letter;
-                    // Update DOM to reflect user correctly guessed a letter
-                    document.getElementById("currentWord").innerHTML = wordGuessGame.hipsterWordHidden.join("    ");
+            if (wordGuessGame.hipsterWord.includes(letter)) {
+                for (var i = 0; i < wordGuessGame.hipsterWord.length; i++) {
+                    // If character at index i is same as user selection then:
+                    if (wordGuessGame.hipsterWord.charAt(i) === letter) {
+                        // Set array value at index i equal to user selection
+                        wordGuessGame.hipsterWordHidden[i] = letter;
+                        // Update DOM to reflect user correctly guessed a letter
+                        document.getElementById("currentWord").innerHTML = wordGuessGame.hipsterWordHidden.join("    ");
+                    }
+                }
+            } else {
+                // Reduce guessesReamining by 1
+                wordGuessGame.guessesRemaining--;
+                // Update DOM to reflect reduction in guessesReamining
+                wordGuessGame.gameTracker();
+                // Add 1 to incorrect guesses
+                wordGuessGame.numIncorrectGuesses++;
+                // If incorrect guesses equals one, then draw face
+                if (wordGuessGame.numIncorrectGuesses === 1) {
+                    hangmanCanvas.drawFace();
+                // Else if incorrect guesses equals two, then draw body line
+                } else if (wordGuessGame.numIncorrectGuesses === 2) {
+                    hangmanCanvas.drawBody();
+                // Else if incorrect guesses equals three, then draw right arm
+                } else if (wordGuessGame.numIncorrectGuesses === 3) {
+                    hangmanCanvas.drawRightArm();
+                // Else if incorrect guesses equals four, then draw left arm
+                } else if (wordGuessGame.numIncorrectGuesses === 4) {
+                    hangmanCanvas.drawLeftArm();
+                // Else if incorrect guesses equals five, then draw right leg
+                } else if (wordGuessGame.numIncorrectGuesses === 5) {
+                    hangmanCanvas.drawRightLeg();
+                // Else if incorrect guesses equals six, then draw left leg
+                } else if (wordGuessGame.numIncorrectGuesses === 6) {
+                    hangmanCanvas.drawLeftLeg();
+                // Else if incorrect guesses equals 7, then draw noose
+                } else if (wordGuessGame.numIncorrectGuesses === 7) {
+                    hangmanCanvas.drawNoose();
                 }
             }
 
