@@ -1,5 +1,13 @@
 export var hangmanCanvas;
 
+// Build Out
+// Three circles for nail dots on posts.
+// Cause body, arms, legs, to drop after final guess if wrong.
+// 7 wrong is noose with sad face and regular eyes
+// 8 wrong is body/arm/leg drop with x for eyes and sad face.  Perhaps delay to next round to show lose?
+
+// Drop him to ground for win with smile (potential walk off?)
+
 // Variable to hold context and location of canvas
 var c = document.querySelector("canvas").getContext('2d');
 
@@ -44,22 +52,21 @@ var hangmanCanvas = {
     drawFace: function() {
         // Reduce line thickness from 5 to 2
         c.lineWidth = 2;
-        // Face Circle
+        // Draw Face Circle
         c.beginPath();
         c.arc(150, 100, 20, 0, Math.PI * 2, false);
         c.stroke();
-        // Left Eye Circle
+        // Draw Left Eye Circle
         c.beginPath();
         c.arc(143, 95, 1, 0, Math.PI * 2, false);
         c.stroke();
-        // Right Eye Circle
+        // Draw Right Eye Circle
         c.beginPath();
         c.arc(157, 95, 1, 0, Math.PI * 2, false);
         c.stroke();
-        // Mouth Line
+        // Draw Smile Half Circle
         c.beginPath();
-        c.moveTo(140, 107);
-        c.lineTo(160, 107);
+        c.arc(150, 104, 8, 0, Math.PI, false);
         c.stroke();
     },
     // Function to draw body
@@ -69,7 +76,7 @@ var hangmanCanvas = {
         c.lineTo(150, 170);
         c.stroke();
     },
-    // Function to draw right arm
+    // Function to draw right
     drawRightArm: function() {
         c.beginPath();
         c.moveTo(150, 140);
@@ -81,6 +88,16 @@ var hangmanCanvas = {
         c.beginPath();
         c.moveTo(150, 140);
         c.lineTo(120, 120);
+        c.stroke();
+    },
+    // Function to draw straight line mouth
+    drawStraightLineMouth: function() {
+        // Clear Current Mouth
+        c.clearRect(140, 100, 20, 15);
+        // Draw Straight Line Mouth
+        c.beginPath();
+        c.moveTo(140, 107);
+        c.lineTo(160, 107);
         c.stroke();
     },
     // Function to draw right leg
@@ -104,6 +121,74 @@ var hangmanCanvas = {
         c.beginPath();
         c.moveTo(150, 40);
         c.lineTo(150, 80);
+        c.stroke();
+    },
+    // Function to change face expression
+    drawFrownyFace: function() {
+        // Reduce line thickness from 5 to 2
+        c.lineWidth = 2;
+        // Clear current mouth
+        c.clearRect(140, 100, 20, 15);
+        // Draw frowny half circle
+        c.beginPath();
+        c.arc(150, 112, 8, 0, Math.PI, true);
+        c.stroke();
+    },
+    // Function to draw cross eyes and drawn down body
+    drawDeadFace: function() {
+        // Clear current eyes
+        c.clearRect(140, 90, 25, 10);
+        // Draw right crossed eye
+        c.beginPath();
+        c.moveTo(147, 98);
+        c.lineTo(139, 92);
+        c.stroke();
+        c.beginPath();
+        c.moveTo(139, 98);
+        c.lineTo(147, 92);
+        c.stroke();
+        // Draw Left crossed eye
+        c.beginPath();
+        c.moveTo(161, 98);
+        c.lineTo(153, 92);
+        c.stroke();
+        c.beginPath();
+        c.moveTo(153, 98);
+        c.lineTo(161, 92);
+        c.stroke();
+    },
+    // Function to draw lower body, arms, and legs away from head
+    drawBodyLower: function() {
+        // Clear current body, arms, and legs
+        c.clearRect(115, 115, 75, 85)
+        // Draw Face Circle
+        c.beginPath();
+        c.arc(150, 100, 20, 0, Math.PI * 2, false);
+        c.stroke();
+        // Draw new body lower
+        c.beginPath();
+        c.moveTo(150, 140);
+        c.lineTo(150, 190);
+        c.stroke();
+        // draw new right arm lower
+        c.beginPath();
+        c.moveTo(150, 160);
+        c.lineTo(180, 140);
+        c.stroke();
+        // Draw new lett arm lower
+        c.beginPath();
+        c.moveTo(150, 160);
+        c.lineTo(120, 140);
+        c.stroke();
+        // Draw new right leg lower
+        c.beginPath();
+        c.moveTo(150, 190);
+        c.lineTo(180, 210);
+        c.stroke();
+        // Draw new left leg lower
+        c.beginPath();
+        c.moveTo(150, 190);
+        c.lineTo(120, 210);
         c.stroke();
     },
     // Function to reset Canvas for new round of game

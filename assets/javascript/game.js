@@ -3,6 +3,11 @@
 // Word Guess Game
 //====================================================================================================================
 
+// Built Out
+// End game screen when no words left in hipsterWordListArray.
+// Play again option button?
+// Build better win or lose screen between rounds
+
 // IMPORTS
 import {hangmanCanvas} from "./canvas.js"
 
@@ -177,6 +182,7 @@ document.onkeyup = function (event) {
                 // Else if incorrect guesses equals four, then draw left arm
                 } else if (wordGuessGame.numIncorrectGuesses === 4) {
                     hangmanCanvas.drawLeftArm();
+                    hangmanCanvas.drawStraightLineMouth();
                 // Else if incorrect guesses equals five, then draw right leg
                 } else if (wordGuessGame.numIncorrectGuesses === 5) {
                     hangmanCanvas.drawRightLeg();
@@ -186,6 +192,10 @@ document.onkeyup = function (event) {
                 // Else if incorrect guesses equals 7, then draw noose
                 } else if (wordGuessGame.numIncorrectGuesses === 7) {
                     hangmanCanvas.drawNoose();
+                    hangmanCanvas.drawFrownyFace();
+                } else if (wordGuessGame.numIncorrectGuesses === 8) {
+                    hangmanCanvas.drawDeadFace();
+                    hangmanCanvas.drawBodyLower();
                 }
             }
 
