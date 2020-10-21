@@ -2,10 +2,6 @@ export var hangmanCanvas;
 
 // Build Out
 // Three circles for nail dots on posts.
-// Cause body, arms, legs, to drop after final guess if wrong.
-// 7 wrong is noose with sad face and regular eyes
-// 8 wrong is body/arm/leg drop with x for eyes and sad face.  Perhaps delay to next round to show lose?
-
 // Drop him to ground for win with smile (potential walk off?)
 
 // Variable to hold context and location of canvas
@@ -46,6 +42,19 @@ var hangmanCanvas = {
         c.moveTo(50, 100);
         c.lineTo(119, 25);
         // Draw instructions on canvas
+        c.stroke();
+        // Draw nail connecting diagonal post to main post
+        c.beginPath();
+        c.arc(57, 83, 0.5, 0, Math.PI * 2, false);
+        c.fillStyle = "black"
+        c.fill();
+        c.stroke();
+        c.stroke();
+        // Draw nail connecting diagonal post to overhang post
+        c.beginPath();
+        c.arc(103, 32, 0.5, 0, Math.PI * 2, false);
+        c.fillStyle = "black"
+        c.fill();
         c.stroke();
     },
     // Function to draw face
