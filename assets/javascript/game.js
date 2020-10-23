@@ -156,8 +156,16 @@ document.onkeyup = function (event) {
     wordGuessGameLogic(letter);
 }
 
-// Listen for onclick events
+// Listen for onclick events (this works but feels hacky.  The onclick would ideally be in the buttons dynamically generated .)
 document.onclick = function (event) {
+    // If user click has value letter in the English letter array, then:
+    if (wordGuessGame.isLetter(event.path[0].value)) {
+        // Call game logic with that letter
+        wordGuessGameLogic(event.path[0].value);
+    }
+}
+
+document.ontouchstart = function (event) {
     // If user click has value letter in the English letter array, then:
     if (wordGuessGame.isLetter(event.path[0].value)) {
         // Call game logic with that letter
