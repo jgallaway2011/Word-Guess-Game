@@ -165,14 +165,6 @@ document.onclick = function (event) {
     }
 }
 
-document.ontouchstart = function (event) {
-    // If user click has value letter in the English letter array, then:
-    if (wordGuessGame.isLetter(event.path[0].value)) {
-        // Call game logic with that letter
-        wordGuessGameLogic(event.path[0].value);
-    }
-}
-
 // Function holding main game logic
 // Placed into a function to allow logic to be called by both onkeyup events and onclick events
 function wordGuessGameLogic(letter) {
