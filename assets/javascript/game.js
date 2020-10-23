@@ -50,8 +50,8 @@ var wordGuessGame = {
         "CORNHOLE"
     ],
 
-    // Array to restrict keyboard choices to Enlgish alphabet
-    englishAlphabet: [
+    // Array to restrict keyboard choices to Enlgish letters
+    englishLetters: [
         "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
     ],
 
@@ -101,8 +101,22 @@ var wordGuessGame = {
         document.querySelector("#guessesRemaining").innerHTML = "Number of Guesses Remaining: " + this.guessesRemaining;
     },
 
+    // Checks if user input is in the Enlgish letters
+    isLetter: function (letter) {
+        return this.englishLetters.indexOf(letter) !== -1;
+    },
+
     // Method to initialize new round of game
     initializeRound: function () {
+
+        // Clear English letters from previous round
+        document.querySelector("#englishLetters").innerHTML = ""
+
+        // Display English Letters
+        this.englishLetters.forEach(function(letter) {
+            document.querySelector("#englishLetters").innerHTML += "<button type=\"button\" class=\"btn btn-primary\" value=\"" + letter + "\" id=\"" + letter + "\">" + letter + "</button>"
+        });
+
         // Selects hipsterWord to start new round of game
         this.selectHipsterWord();
 
@@ -126,11 +140,6 @@ var wordGuessGame = {
 
         // Reset Canvas
         hangmanCanvas.resetCanvas();
-    },
-
-    // Checks if user input is in the Enlgish alphabet
-    isLetter: function (letter) {
-        return this.englishAlphabet.indexOf(letter) !== -1;
     }
 }
 
@@ -144,7 +153,22 @@ wordGuessGame.initializeRound()
 document.onkeyup = function (event) {
     // Save user selection in variable
     var letter = event.key.toUpperCase();
-    // Check if user selection is in Enlgish alphabet
+    wordGuessGameLogic(letter);
+}
+
+// Listen for onclick events
+document.onclick = function (event) {
+    // If user click has value letter in the English letter array, then:
+    if (wordGuessGame.isLetter(event.path[0].value)) {
+        // Call game logic with that letter
+        wordGuessGameLogic(event.path[0].value);
+    }
+}
+
+// Function holding main game logic
+// Placed into a function to allow logic to be called by both onkeyup events and onclick events
+function wordGuessGameLogic(letter) {
+    // Check if user selection is in Enlgish letters
     if (wordGuessGame.isLetter(letter)) {
         // If user selection was not previously selected this round, then:
         if (wordGuessGame.lettersGuessed.indexOf(letter) === -1) {
@@ -152,6 +176,8 @@ document.onkeyup = function (event) {
             wordGuessGame.lettersGuessed.push(letter);
             // Reflect user most recent selection in DOM
             document.getElementById("lettersGuessed").innerHTML = "Letters Already Guessed: " + wordGuessGame.lettersGuessed.join("  ");
+            // Remove visibility of button
+            document.getElementById(letter.toString()).style.visibility = "hidden";
             // Loop through hipsterWord characters
             if (wordGuessGame.hipsterWord.includes(letter)) {
                 for (var i = 0; i < wordGuessGame.hipsterWord.length; i++) {
@@ -185,20 +211,21 @@ document.onkeyup = function (event) {
                     hangmanCanvas.drawStraightLineMouth();
                 // Else if incorrect guesses equals five, then draw right leg
                 } else if (wordGuessGame.numIncorrectGuesses === 5) {
-                    hangmanCanvas.drawRightLeg();
+                hangmanCanvas.drawRightLeg();
                 // Else if incorrect guesses equals six, then draw left leg
                 } else if (wordGuessGame.numIncorrectGuesses === 6) {
-                    hangmanCanvas.drawLeftLeg();
+                hangmanCanvas.drawLeftLeg();
                 // Else if incorrect guesses equals 7, then draw noose
                 } else if (wordGuessGame.numIncorrectGuesses === 7) {
                     hangmanCanvas.drawNoose();
                     hangmanCanvas.drawFrownyFace();
+                // Else if incorrect guesses equals 8, then draw dead face and lower body.
                 } else if (wordGuessGame.numIncorrectGuesses === 8) {
                     hangmanCanvas.drawDeadFace();
                     hangmanCanvas.drawBodyLower();
                 }
             }
-
+            
             // If zero or more guesses remaining and all letters of hidden word guessed, then:
             if (wordGuessGame.guessesRemaining >= 0 && wordGuessGame.hipsterWordHidden.indexOf("_") === -1) {
                 // Notify user that round was won

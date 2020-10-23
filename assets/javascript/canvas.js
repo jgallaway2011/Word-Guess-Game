@@ -1,8 +1,7 @@
 export var hangmanCanvas;
 
 // Build Out
-// Three circles for nail dots on posts.
-// Drop him to ground for win with smile (potential walk off?)
+// Drop him to ground for win with smile
 
 // Variable to hold context and location of canvas
 var c = document.querySelector("canvas").getContext('2d');
@@ -206,4 +205,3 @@ var hangmanCanvas = {
         this.drawStart();
     }
 }
-
