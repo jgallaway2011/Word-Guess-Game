@@ -166,10 +166,12 @@ document.onclick = function(event) {
     }
 }
 
+// List for ontouchstart events
 document.ontouchstart = function(event) {
-    event.preventDefault();
-    alert(event.touches);
-    alert(event.targetTouches);
+    if (wordGuessGame.isLetter(event.path[0].value)) {
+        // Call game logic with that letter
+        wordGuessGameLogic(event.path[0].value);
+    }
 }
 
 // When the user clicks anywhere outside of the Letter Already Guessed modal, close it
