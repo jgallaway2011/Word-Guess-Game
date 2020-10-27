@@ -6,7 +6,6 @@
 // Built Out
 // End game screen when no words left in hipsterWordListArray.
 // Play again option button?
-// Build better win or lose screen between rounds
 
 // IMPORTS
 import {hangmanCanvas} from "./canvas.js"
@@ -165,6 +164,11 @@ document.onclick = function(event) {
         // Call game logic with that letter
         wordGuessGameLogic(event.path[0].value);
     }
+}
+
+document.ontouchstart = function(event) {
+    event.preventDefault();
+    alert(event);
 }
 
 // When the user clicks anywhere outside of the Letter Already Guessed modal, close it
