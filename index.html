@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
     integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+
 </head>
 
 <body>
@@ -29,7 +30,6 @@
       </div>
       <div class="col-md-4">
         <div class="row no-gutters">
-          Press any key to get started!
         </div>
         <div class="row no-gutters" id="wins">
         </div>
@@ -48,6 +48,30 @@
       </canvas>
       <div id="englishLetters">
       </div>
+
+      <!-- The Win or Lose Modal -->
+      <div id="winOrLoseModal" class="modal">
+
+        <!-- Win or Lose Modal content -->
+        <div class="modal-content">
+          <h1 id="winOrLoseHeader"></h1>
+          <div id="modalWordDiv"></div>
+          <div id="modalGifDiv"></div>
+          <button type="button" class="btn btn-primary" id="startNextRound">Next Round</button>
+          <button type="button" class="btn btn-danger" id="quitGame">Quit</button>
+        </div>
+      </div>
+
+      <!-- Letter Already Guessed Modal -->
+      <div id="letterAlreadyGuessedModal" class="modal">
+
+        <!-- Letter Already Guessed Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h1>Letter Already Guessed!</h1>
+        </div>
+      </div>
+
 </body>
 <script type="module" src="assets/javascript/game.js"></script>
 
