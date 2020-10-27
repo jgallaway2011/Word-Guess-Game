@@ -168,7 +168,8 @@ document.onclick = function(event) {
 
 document.ontouchstart = function(event) {
     event.preventDefault();
-    alert(event);
+    alert(event.touches);
+    alert(event.targetTouches);
 }
 
 // When the user clicks anywhere outside of the Letter Already Guessed modal, close it
