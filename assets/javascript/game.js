@@ -77,13 +77,13 @@ var wordGuessGame = {
     lettersGuessed: [],
 
     // Method to select a random hipsterWord from the hipsterWords array
-    selectHipsterWord: function () {
+    selectHipsterWord: function() {
         var hipsterWordIndex = Math.floor(Math.random() * this.hipsterWords.length);
         this.hipsterWord = this.hipsterWords.splice(hipsterWordIndex, 1)[0];
     },
 
     // Method to insert random word into game display with "_" instead of the letters
-    insertHipsterWord: function () {
+    insertHipsterWord: function() {
         this.hipsterWordHidden = []
         for (var i = 0; i < this.hipsterWord.length; i++) {
             this.hipsterWordHidden.push("_");
@@ -150,20 +150,43 @@ var wordGuessGame = {
 wordGuessGame.initializeRound()
 
 // Listen for key up events on keyboard
-document.onkeyup = function (event) {
+document.onkeyup = function(event) {
     // Save user selection in variable
-    var letter = event.key.toUpperCase();
-    wordGuessGameLogic(letter);
+    if (document.getElementById("winOrLoseModal").style.display !== "block" && document.getElementById("letterAlreadyGuessedModal").style.display !== "block")  {
+        var letter = event.key.toUpperCase();
+        wordGuessGameLogic(letter);
+    }
 }
 
 // Listen for onclick events (this works but feels hacky.  The onclick would ideally be in the buttons dynamically generated
-document.onclick = function (event) {
+document.onclick = function(event) {
     // If user click has value letter in the English letter array, then:
     if (wordGuessGame.isLetter(event.path[0].value)) {
         // Call game logic with that letter
         wordGuessGameLogic(event.path[0].value);
     }
 }
+
+// When the user clicks anywhere outside of the Letter Already Guessed modal, close it
+window.onclick = function(event) {
+    if (event.target == document.getElementById("letterAlreadyGuessedModal")) {
+        document.getElementById("letterAlreadyGuessedModal").style.display = "none";
+    }
+  }
+
+// When the user clicks on Next Round button, close the winOrLoseModal and initalize next round
+document.getElementById("startNextRound").onclick = function() {
+    // Close winOrLoseModal
+    document.getElementById("winOrLoseModal").style.display = "none";
+    // Start new round
+    wordGuessGame.initializeRound();
+  }
+
+// When the user clicks on Next Round button, close the winModal and initalize next round
+document.getElementById("quitGame").onclick = function() {
+    // Close winorLoseModal
+    document.getElementById("winOrLoseModal").style.display = "none";
+  }
 
 // Function holding main game logic
 // Placed into a function to allow logic to be called by both onkeyup events and onclick events
@@ -235,7 +258,7 @@ function wordGuessGameLogic(letter) {
                 // Add current word to win modal
                 document.getElementById("modalWordDiv").innerHTML = wordGuessGame.hipsterWord;
                 // Add gif that assocciated with word
-                document.getElementById("modalGifDiv").innerHTML = "<img src=\"assets/media/" + wordGuessGame.hipsterWord.toLowerCase() + ".gif\" alt=\"" + wordGuessGame.hipsterWord.toLowerCase() + "\" width=\"500\" height=\"600\"></img>"
+                document.getElementById("modalGifDiv").innerHTML = "<img src=\"assets/media/" + wordGuessGame.hipsterWord.toLowerCase() + ".gif\" alt=\"" + wordGuessGame.hipsterWord.toLowerCase() + "\" width=\"100%\" height=\"auto\"></img>"
                 // Display Modal to nofity user won round
                 document.getElementById("winOrLoseModal").style.display = "block";
             // If zero guesses remaining and not all letters of hidden word guessed, then:
@@ -257,24 +280,3 @@ function wordGuessGameLogic(letter) {
         }
     }
 }
-
-// When the user clicks on Next Round button, close the winModal and initalize next round
-document.getElementById("startNextRound").onclick = function() {
-    // Close winModal
-    document.getElementById("winOrLoseModal").style.display = "none";
-    // Start new round
-    wordGuessGame.initializeRound();
-  }
-
-// When the user clicks on Next Round button, close the winModal and initalize next round
-document.getElementById("quitGame").onclick = function() {
-    // Close winorLoseModal
-    document.getElementById("winOrLoseModal").style.display = "none";
-  }
-
-// When the user clicks anywhere outside of the Letter Already Guessed modal, close it
-window.onclick = function(event) {
-    if (event.target == document.getElementById("letterAlreadyGuessedModal")) {
-        document.getElementById("letterAlreadyGuessedModal").style.display = "none";
-    }
-  }

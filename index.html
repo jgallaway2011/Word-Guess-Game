@@ -15,9 +15,11 @@
 </head>
 
 <body>
+  <!-- As a heading -->
+  <nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">Hipster HangMan</span>
+  </nav>
   <div class="container.fluid no-gutters">
-    <h1 class="text-center">Hipster Hangman!</h1>
-
     <div class="row no-gutters">
       <div class="col-md-2">
       </div>
@@ -44,7 +46,7 @@
     <div>
 
       <canvas width="300" height="300">
-        An alternative text describing what your canvas displays.
+        Hangman Drawing
       </canvas>
       <div id="englishLetters">
       </div>
@@ -57,8 +59,10 @@
           <h1 id="winOrLoseHeader"></h1>
           <div id="modalWordDiv"></div>
           <div id="modalGifDiv"></div>
-          <button type="button" class="btn btn-primary" id="startNextRound">Next Round</button>
-          <button type="button" class="btn btn-danger" id="quitGame">Quit</button>
+          <div id="startOrQuitButtonDiv">
+            <button type="button" class="btn btn-primary" id="startNextRound">Next Round</button>
+            <button type="button" class="btn btn-danger" id="quitGame">Quit</button>
+          </div>
         </div>
       </div>
 
