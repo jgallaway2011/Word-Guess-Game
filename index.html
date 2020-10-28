@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -59,7 +59,8 @@
           <div id="modalGifDiv"></div>
           <div id="startOrQuitButtonDiv">
             <button type="button" class="btn btn-primary" id="startNextRound">Next Round</button>
-            <button type="button" class="btn btn-danger" id="quitGame">Quit</button>
+            <button type="button" class="btn btn-danger end-screen" id="quitGame">Quit</button>
+            <button type="button" class="btn btn-primary end-screen" id="finalScore">Final Score</button>
           </div>
         </div>
       </div>
@@ -71,6 +72,22 @@
         <div class="modal-content">
           <span class="close">&times;</span>
           <h1>Letter Already Guessed!</h1>
+        </div>
+      </div>
+
+      <!-- Quit Game Modal -->
+      <div id="quitGameModal" class="modal">
+
+        <!-- Quit Game Modal content -->
+        <div class="modal-content">
+          <div>
+            <h1 id="gameOverHeader">GAME OVER</h1>
+          </div>
+          <h2 id="winsHeader"></h2>
+          <h2 id="lossesHeader"></h2>
+          <div id="playAgainDiv">
+            <button type="button" class="btn btn-primary" id="playAgain">Play Again?</button>
+          </div>
         </div>
       </div>
 

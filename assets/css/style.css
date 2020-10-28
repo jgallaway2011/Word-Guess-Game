@@ -12,37 +12,48 @@
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
   
-  /* Modal Content/Box */
-  .modal-content {
+/* Modal Content Box */
+.modal-content {
     background-color: #fefefe;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 315px; /* Could be more or less, depending on screen size */
-    /* height: 500px; */
   }
   
-  /* The Close Button */
-  .close {
+/* The Close Button */
+.close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
   }
   
-  .close:hover,
-  .close:focus {
+.close:hover,
+.close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
   }
 
-  #modalWordDiv,
-  #winOrLoseHeader {
+/* Center Text */
+#modalWordDiv,
+#winOrLoseHeader,
+#gameOverHeader,
+#winsHeader,
+#lossesHeader,
+#startOrQuitButtonDiv,
+#playAgainDiv {
       text-align: center;
   }
 
-#startOrQuitButtonDiv {
-  text-align: center;
+/* Add margin to top for spacing */
+#startOrQuitButtonDiv,
+#playAgainDiv {
   margin-top: 10px;
+}
+
+/* Final Score button should not show until end of game */
+#finalScore {
+  display: none;
 }

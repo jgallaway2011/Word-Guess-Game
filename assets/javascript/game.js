@@ -3,10 +3,6 @@
 // Word Guess Game
 //====================================================================================================================
 
-// Built Out
-// End game screen when no words left in hipsterWordListArray.
-// Play again option button?
-
 // IMPORTS
 import {hangmanCanvas} from "./canvas.js"
 
@@ -113,7 +109,14 @@ var wordGuessGame = {
 
         // Display English Letters
         this.englishLetters.forEach(function(letter) {
-            document.querySelector("#englishLetters").innerHTML += "<button type=\"button\" class=\"btn\" id=\"" + letter + "\"value=\"" + letter + "\">" + letter + "</button>"
+            document.querySelector("#englishLetters").innerHTML += "<button type=\"button\" class=\"btn\" id=\"" + letter + "\"value=\"" + letter + "\">" + letter + "</button>";
+        });
+
+        // Add Click Event Listner to each letter to call wordGuessGameLogic function with respective letter
+        this.englishLetters.forEach(function(letter) {
+            document.getElementById(letter).addEventListener("click", function() {
+                wordGuessGameLogic(letter);
+            });
         });
 
         // Selects hipsterWord to start new round of game
@@ -139,6 +142,25 @@ var wordGuessGame = {
 
         // Reset Canvas
         hangmanCanvas.resetCanvas();
+    },
+    // Method to reset entire game
+    resetGame: function() {
+        // Reset wins to 0
+        this.wins = 0;
+        // Reset losses to 0
+        this.losses = 0;
+        // Reset hipsterWords array to contain all words
+        this.hipsterWords = ["SKATEBOARD", "MIXTAPE", "UNICORN", "VENMO", "TYPEWRITER", "CLICHE", "FORAGE", "OCCUPY", "SELFIES", "TOFU", "FLANNEL", 
+        "FAM", "VINYL", "ETSY", "YOGA", "BREWERY", "BEER", "MEDITATION", "PABST", "BICYCLE", "ARTISAN", "ORGANIC", "DISTILLERY", "PINTEREST",
+        "TYPEWRITER", "AESTHETIC", "CORNHOLE"];
+        // Display Next Round button
+        document.getElementById("startNextRound").style.display = "inline-block";
+        // Display Quit Game button
+        document.getElementById("quitGame").style.display = "inline-block";
+        // Hide Final Score button
+        document.getElementById("finalScore").style.display = "none";
+        // Intialize round of game
+        this.initializeRound();
     }
 }
 
@@ -148,29 +170,11 @@ var wordGuessGame = {
 // Initialize round of game
 wordGuessGame.initializeRound()
 
-// Listen for key up events on keyboard
-document.onkeyup = function(event) {
-    // Save user selection in variable
-    if (document.getElementById("winOrLoseModal").style.display !== "block" && document.getElementById("letterAlreadyGuessedModal").style.display !== "block")  {
-        var letter = event.key.toUpperCase();
-        wordGuessGameLogic(letter);
-    }
-}
-
-// Listen for onclick events (this works but feels hacky.  The onclick would ideally be in the buttons dynamically generated
-document.onclick = function(event) {
-    // If user click has value letter in the English letter array, then:
-    if (wordGuessGame.isLetter(event.path[0].value)) {
-        // Call game logic with that letter
-        wordGuessGameLogic(event.path[0].value);
-    }
-}
-
-// List for ontouchstart events
-document.ontouchstart = function(event) {
-    if (wordGuessGame.isLetter(event.path[0].value)) {
-        // Call game logic with that letter
-        wordGuessGameLogic(event.path[0].value);
+// Listen for key down events on keyboard
+document.onkeydown = function(event) {
+    if (document.getElementById("winOrLoseModal").style.display !== "block" && document.getElementById("letterAlreadyGuessedModal").style.display !== "block" && document.getElementById("quitGameModal").style.display !== "block")  {
+        // Call main game logic with keyboard letter
+        wordGuessGameLogic(event.key.toUpperCase());
     }
 }
 
@@ -189,14 +193,40 @@ document.getElementById("startNextRound").onclick = function() {
     wordGuessGame.initializeRound();
   }
 
-// When the user clicks on Next Round button, close the winModal and initalize next round
+// When the user clicks on Quit Game button, close the winOrLoseModal and open the quitGameModal
 document.getElementById("quitGame").onclick = function() {
     // Close winorLoseModal
     document.getElementById("winOrLoseModal").style.display = "none";
+    // Add wins to the quitGameModal
+    document.getElementById("winsHeader").innerHTML = "Wins: " + wordGuessGame.wins;
+    // Add losses to the quitGameModal
+    document.getElementById("lossesHeader").innerHTML = "Losses: " + wordGuessGame.losses;
+    // Display quitGameModal
+    document.getElementById("quitGameModal").style.display = "block";
+  }
+
+// When the user clicks on Final Score button, close the winOrLoseModal and open the quitGameModal
+document.getElementById("finalScore").onclick = function() {
+    // Close winorLoseModal
+    document.getElementById("winOrLoseModal").style.display = "none";
+    // Add wins to the quitGameModal
+    document.getElementById("winsHeader").innerHTML = "Wins: " + wordGuessGame.wins;
+    // Add losses to the quitGameModal
+    document.getElementById("lossesHeader").innerHTML = "Losses: " + wordGuessGame.losses;
+    // Display quitGameModal
+    document.getElementById("quitGameModal").style.display = "block";
+  }
+
+// When the user clicks on Play Again? button, close the quitGameModal and reset game.
+document.getElementById("playAgain").onclick = function() {
+    // Close the quitGameModal
+    document.getElementById("quitGameModal").style.display = "none";
+    // Reset Game
+    wordGuessGame.resetGame();
   }
 
 // Function holding main game logic
-// Placed into a function to allow logic to be called by both onkeyup events and onclick events
+// Placed into a function to allow logic to be called by both key down and click events
 function wordGuessGameLogic(letter) {
     // Check if user selection is in Enlgish letters
     if (wordGuessGame.isLetter(letter)) {
@@ -260,24 +290,46 @@ function wordGuessGameLogic(letter) {
             if (wordGuessGame.guessesRemaining >= 0 && wordGuessGame.hipsterWordHidden.indexOf("_") === -1) {
                 // Increase wins by 1
                 wordGuessGame.wins++;
+                // Displays updated wins, losses, and guesses remaining
+                wordGuessGame.gameTracker();
                 // Header to say "You won!" in modal  
                 document.getElementById("winOrLoseHeader").innerHTML = "You won!"
-                // Add current word to win modal
+                // Add current word to winOrLoseModal
                 document.getElementById("modalWordDiv").innerHTML = wordGuessGame.hipsterWord;
                 // Add gif that assocciated with word
-                document.getElementById("modalGifDiv").innerHTML = "<img src=\"assets/media/" + wordGuessGame.hipsterWord.toLowerCase() + ".gif\" alt=\"" + wordGuessGame.hipsterWord.toLowerCase() + "\" width=\"100%\" height=\"auto\"></img>"
+                document.getElementById("modalGifDiv").innerHTML = "<img src=\"assets/media/" + wordGuessGame.hipsterWord.toLowerCase() + ".gif\" alt=\"" + wordGuessGame.hipsterWord.toLowerCase() + "\" width=\"100%\" height=\"auto\"></img>";
+                // If no words remaining in the hipsterWords array, then display a button for showing final score
+                if (wordGuessGame.hipsterWords.length === 0) {
+                    // Hide Next Round button
+                    document.getElementById("startNextRound").style.display = "none";
+                    // Hide Quit Game button
+                    document.getElementById("quitGame").style.display = "none";
+                    // Show Final Score button
+                    document.getElementById("finalScore").style.display = "inline-block";
+                }
                 // Display Modal to nofity user won round
                 document.getElementById("winOrLoseModal").style.display = "block";
             // If zero guesses remaining and not all letters of hidden word guessed, then:
-            } else if (wordGuessGame.guessesRemaining === 0 && wordGuessGame.hipsterWordHidden.indexOf("_") !== -1) {
+            } else if (wordGuessGame.guessesRemaining === 0 && wordGuessGame.hipsterWordHidden.indexOf("_") !== -1 && wordGuessGame.hipsterWords.length > 0) {
                 // Increase losses by 1
                 wordGuessGame.losses++;
+                // Displays updated wins, losses, and guesses remaining
+                wordGuessGame.gameTracker();
                 // Header to say "You lost!" in modal  
                 document.getElementById("winOrLoseHeader").innerHTML = "You lost!"
-                // Add current word to win modal
+                // Add current word to winOrLoseModal
                 document.getElementById("modalWordDiv").innerHTML = wordGuessGame.hipsterWord;
                 // Add gif that assocciated with word
-                document.getElementById("modalGifDiv").innerHTML = "<img src=\"assets/media/" + wordGuessGame.hipsterWord.toLowerCase() + ".gif\" alt=\"" + wordGuessGame.hipsterWord.toLowerCase() + "\" width=\"100%\" height=\"auto\"></img>"
+                document.getElementById("modalGifDiv").innerHTML = "<img src=\"assets/media/" + wordGuessGame.hipsterWord.toLowerCase() + ".gif\" alt=\"" + wordGuessGame.hipsterWord.toLowerCase() + "\" width=\"100%\" height=\"auto\"></img>";
+                // If no words remaining in the hipsterWords array, then display a button for showing final score
+                if (wordGuessGame.hipsterWords.length === 0) {
+                    // Hide Next Round button
+                    document.getElementById("startNextRound").style.display = "none";
+                    // Hide Quit Game button
+                    document.getElementById("quitGame").style.display = "none";
+                    // Show Final Score button
+                    document.getElementById("finalScore").style.display = "inline-block";
+                }
                 // Display Modal to nofity user won round
                 document.getElementById("winOrLoseModal").style.display = "block";
             }
