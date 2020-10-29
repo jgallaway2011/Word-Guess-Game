@@ -109,7 +109,7 @@ var wordGuessGame = {
 
         // Display English Letters
         this.englishLetters.forEach(function(letter) {
-            document.querySelector("#englishLetters").innerHTML += "<button type=\"button\" class=\"btn\" id=\"" + letter + "\"value=\"" + letter + "\">" + letter + "</button>";
+            document.querySelector("#englishLetters").innerHTML += "<button type=\"button\" class=\"btn btn-letter\" id=\"" + letter + "\"value=\"" + letter + "\" style=\"width: 38px;\">" + letter + "</button>";
         });
 
         // Add Click Event Listner to each letter to call wordGuessGameLogic function with respective letter

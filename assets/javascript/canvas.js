@@ -12,6 +12,7 @@ var hangmanCanvas = {
     drawStart: function() {
         // Line Thickness
         c.lineWidth = 5;
+        c.strokeStyle = "#e2b96e";
         c.beginPath();
         c.moveTo(50, 270);
         // Vertical Left Line of Main Post
@@ -45,14 +46,13 @@ var hangmanCanvas = {
         // Draw nail connecting diagonal post to main post
         c.beginPath();
         c.arc(57, 83, 0.5, 0, Math.PI * 2, false);
-        c.fillStyle = "black"
+        c.strokeStyle = "black";
+        c.fillStyle = "black";
         c.fill();
-        c.stroke();
         c.stroke();
         // Draw nail connecting diagonal post to overhang post
         c.beginPath();
         c.arc(103, 32, 0.5, 0, Math.PI * 2, false);
-        c.fillStyle = "black"
         c.fill();
         c.stroke();
     },
