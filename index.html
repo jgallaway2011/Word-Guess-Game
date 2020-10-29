@@ -16,80 +16,71 @@
   <!-- As a heading -->
   <nav class="navbar navbar-light bg-light">
     <span class="navbar-brand mb-0 h1">Hipster HangMan</span>
+    <span id="wins"></span>
+    <span id="losses"></span>
   </nav>
   <div class="container.fluid no-gutters">
-    <div class="row no-gutters">
-      <div class="col-md-2">
+    <div class="row justify-content-center no-gutters">
+      <div class=col-md-4 id="guessesRemaining">
       </div>
-      <div class="col-md-4">
-
-        <h2>Current Word</h2>
-
-        <div class="row no-gutters" id="currentWord">
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="row no-gutters">
-        </div>
-        <div class="row no-gutters" id="wins">
-        </div>
-        <div class="row no-gutters" id="losses">
-        </div>
-        <div class="row no-gutters" id="guessesRemaining">
-        </div>
-        <div class="row no-gutters" id="lettersGuessed">
-        </div>
+      <div class=col-md-4 id="lettersGuessed">
       </div>
     </div>
-    <div>
-
-      <canvas width="300" height="300">
-        Hangman Drawing
-      </canvas>
-      <div id="englishLetters">
+    <div class="row no-gutters ">
+      <div class="col-md-6" id=currentWordDiv>
+        <span id="currentWord"></span>
       </div>
-
-      <!-- The Win or Lose Modal -->
-      <div id="winOrLoseModal" class="modal">
-
-        <!-- Win or Lose Modal content -->
-        <div class="modal-content">
-          <h1 id="winOrLoseHeader"></h1>
-          <div id="modalWordDiv"></div>
-          <div id="modalGifDiv"></div>
-          <div id="startOrQuitButtonDiv">
-            <button type="button" class="btn btn-primary" id="startNextRound">Next Round</button>
-            <button type="button" class="btn btn-danger end-screen" id="quitGame">Quit</button>
-            <button type="button" class="btn btn-primary end-screen" id="finalScore">Final Score</button>
-          </div>
-        </div>
+      <div class="col-md-6">
+        <canvas width="300" height="300">
+          Hangman Drawing
+        </canvas>
       </div>
+    </div>
+  </div>
+  <div id="englishLetters">
+  </div>
 
-      <!-- Letter Already Guessed Modal -->
-      <div id="letterAlreadyGuessedModal" class="modal">
+  <!-- The Win or Lose Modal -->
+  <div id="winOrLoseModal" class="modal">
 
-        <!-- Letter Already Guessed Modal content -->
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <h1>Letter Already Guessed!</h1>
-        </div>
+    <!-- Win or Lose Modal content -->
+    <div class="modal-content">
+      <h1 id="winOrLoseHeader"></h1>
+      <div id="modalWordDiv"></div>
+      <div id="modalGifDiv"></div>
+      <div id="startOrQuitButtonDiv">
+        <button type="button" class="btn btn-primary" id="startNextRound">Next Round</button>
+        <button type="button" class="btn btn-danger end-screen" id="quitGame">Quit</button>
+        <button type="button" class="btn btn-primary end-screen" id="finalScore">Final Score</button>
       </div>
+    </div>
+  </div>
 
-      <!-- Quit Game Modal -->
-      <div id="quitGameModal" class="modal">
+  <!-- Letter Already Guessed Modal -->
+  <div id="letterAlreadyGuessedModal" class="modal">
 
-        <!-- Quit Game Modal content -->
-        <div class="modal-content">
-          <div>
-            <h1 id="gameOverHeader">GAME OVER</h1>
-          </div>
-          <h2 id="winsHeader"></h2>
-          <h2 id="lossesHeader"></h2>
-          <div id="playAgainDiv">
-            <button type="button" class="btn btn-primary" id="playAgain">Play Again?</button>
-          </div>
-        </div>
+    <!-- Letter Already Guessed Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h1>Letter Already Guessed!</h1>
+    </div>
+  </div>
+
+  <!-- Quit Game Modal -->
+  <div id="quitGameModal" class="modal">
+
+    <!-- Quit Game Modal content -->
+    <div class="modal-content">
+      <div>
+        <h1 id="gameOverHeader">GAME OVER</h1>
       </div>
+      <h2 id="winsHeader"></h2>
+      <h2 id="lossesHeader"></h2>
+      <div id="playAgainDiv">
+        <button type="button" class="btn btn-primary" id="playAgain">Play Again?</button>
+      </div>
+    </div>
+  </div>
 
 </body>
 <script type="module" src="assets/javascript/game.js"></script>

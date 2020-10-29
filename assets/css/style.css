@@ -38,22 +38,43 @@
 
 /* Center Text */
 #modalWordDiv,
+#currentWordDiv,
 #winOrLoseHeader,
 #gameOverHeader,
 #winsHeader,
 #lossesHeader,
 #startOrQuitButtonDiv,
-#playAgainDiv {
+#playAgainDiv
+#englishLetters {
       text-align: center;
   }
 
 /* Add margin to top for spacing */
 #startOrQuitButtonDiv,
-#playAgainDiv {
+#playAgainDiv,
+#guessesRemaining,
+#lettersGuessed {
   margin-top: 10px;
 }
 
 /* Final Score button should not show until end of game */
 #finalScore {
   display: none;
+}
+
+canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+#currentWord {
+  display: inline-block;
+  margin-top: 10px;
+  border: 5px solid black;
+  border-radius: 50px;
+  padding: 10px 10px 5px;
+  width: 80%;
 }

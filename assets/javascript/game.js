@@ -93,7 +93,7 @@ var wordGuessGame = {
         // Displays loss total
         document.querySelector("#losses").innerHTML = "Losses: " + this.losses;
         // Displays guessesRemaining for current word
-        document.querySelector("#guessesRemaining").innerHTML = "Number of Guesses Remaining: " + this.guessesRemaining;
+        document.querySelector("#guessesRemaining").innerHTML = "Guesses Remaining: " + this.guessesRemaining;
     },
 
     // Checks if user input is in the Enlgish letters
@@ -135,7 +135,7 @@ var wordGuessGame = {
         this.lettersGuessed = [];
 
         // Display empty letters guessed for new round
-        document.getElementById("lettersGuessed").innerHTML = "Letters Already Guessed: " + wordGuessGame.lettersGuessed.join("  ");
+        document.getElementById("lettersGuessed").innerHTML = "Letters Guessed: " + wordGuessGame.lettersGuessed.join("  ");
 
         // Reset incorrect guesses to zero
         this.numIncorrectGuesses = 0;
@@ -235,7 +235,7 @@ function wordGuessGameLogic(letter) {
             // Add user selection to lettersGuessed array
             wordGuessGame.lettersGuessed.push(letter);
             // Reflect user most recent selection in DOM
-            document.getElementById("lettersGuessed").innerHTML = "Letters Already Guessed: " + wordGuessGame.lettersGuessed.join("  ");
+            document.getElementById("lettersGuessed").innerHTML = "Letters Guessed: " + wordGuessGame.lettersGuessed.join("  ");
             // Remove visibility of button
             document.getElementById(letter.toString()).style.visibility = "hidden";
             // Loop through hipsterWord characters
