@@ -310,7 +310,7 @@ function wordGuessGameLogic(letter) {
                 // Display Modal to nofity user won round
                 document.getElementById("winOrLoseModal").style.display = "block";
             // If zero guesses remaining and not all letters of hidden word guessed, then:
-            } else if (wordGuessGame.guessesRemaining === 0 && wordGuessGame.hipsterWordHidden.indexOf("_") !== -1 && wordGuessGame.hipsterWords.length > 0) {
+            } else if (wordGuessGame.guessesRemaining === 0 && wordGuessGame.hipsterWordHidden.indexOf("_") !== -1) {
                 // Increase losses by 1
                 wordGuessGame.losses++;
                 // Displays updated wins, losses, and guesses remaining
