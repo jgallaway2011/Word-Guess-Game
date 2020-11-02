@@ -1,5 +1,7 @@
 body {
   background-color: #325a70;
+  -webkit-user-select: none;
+  touch-action: none;
 }
 
 
