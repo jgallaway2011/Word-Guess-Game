@@ -40,7 +40,6 @@ var wordGuessGame = {
         "ORGANIC",
         "DISTILLERY",
         "PINTEREST",
-        "TYPEWRITER",
         "AESTHETIC",
         "CORNHOLE"
     ],
@@ -61,9 +60,6 @@ var wordGuessGame = {
 
     // To hold guesses remaining for selected word in each round of game
     guessesRemaining: 8,
-
-    // To hold number of incorrect guesses
-    numIncorrectGuesses: 0,
 
     // Empty array that will hold " _ " for letters of randomly selected hipsterWord
     hipsterWordHidden: [],
@@ -93,7 +89,7 @@ var wordGuessGame = {
         // Displays loss total
         document.querySelector("#losses").innerHTML = "Losses: " + this.losses;
         // Displays guessesRemaining for current word
-        document.querySelector("#guessesRemaining").innerHTML = "Guesses Remaining: " + this.guessesRemaining;
+        // document.querySelector("#guessesRemaining").innerHTML = "Guesses Remaining: " + this.guessesRemaining;
     },
 
     // Checks if user input is in the Enlgish letters
@@ -135,7 +131,7 @@ var wordGuessGame = {
         this.lettersGuessed = [];
 
         // Display empty letters guessed for new round
-        document.getElementById("lettersGuessed").innerHTML = "Letters Guessed: " + wordGuessGame.lettersGuessed.join("  ");
+        // document.getElementById("lettersGuessed").innerHTML = "Letters Guessed: " + wordGuessGame.lettersGuessed.join("  ");
 
         // Reset incorrect guesses to zero
         this.numIncorrectGuesses = 0;
@@ -151,8 +147,7 @@ var wordGuessGame = {
         this.losses = 0;
         // Reset hipsterWords array to contain all words
         this.hipsterWords = ["SKATEBOARD", "MIXTAPE", "UNICORN", "VENMO", "TYPEWRITER", "CLICHE", "FORAGE", "OCCUPY", "SELFIES", "TOFU", "FLANNEL", 
-        "FAM", "VINYL", "ETSY", "YOGA", "BREWERY", "BEER", "MEDITATION", "PABST", "BICYCLE", "ARTISAN", "ORGANIC", "DISTILLERY", "PINTEREST",
-        "TYPEWRITER", "AESTHETIC", "CORNHOLE"];
+        "FAM", "VINYL", "ETSY", "YOGA", "BREWERY", "BEER", "MEDITATION", "PABST", "BICYCLE", "ARTISAN", "ORGANIC", "DISTILLERY", "PINTEREST", "AESTHETIC", "CORNHOLE"];
         // Display Next Round button
         document.getElementById("startNextRound").style.display = "inline-block";
         // Display Quit Game button
@@ -235,7 +230,7 @@ function wordGuessGameLogic(letter) {
             // Add user selection to lettersGuessed array
             wordGuessGame.lettersGuessed.push(letter);
             // Reflect user most recent selection in DOM
-            document.getElementById("lettersGuessed").innerHTML = "Letters Guessed: " + wordGuessGame.lettersGuessed.join("  ");
+            // document.getElementById("lettersGuessed").innerHTML = "Letters Guessed: " + wordGuessGame.lettersGuessed.join("  ");
             // Remove visibility of button
             document.getElementById(letter.toString()).style.visibility = "hidden";
             // Loop through hipsterWord characters
@@ -252,35 +247,38 @@ function wordGuessGameLogic(letter) {
             } else {
                 // Reduce guessesReamining by 1
                 wordGuessGame.guessesRemaining--;
-                // Update DOM to reflect reduction in guessesReamining
-                wordGuessGame.gameTracker();
-                // Add 1 to incorrect guesses
-                wordGuessGame.numIncorrectGuesses++;
-                // If incorrect guesses equals one, then draw face
-                if (wordGuessGame.numIncorrectGuesses === 1) {
+                // If guessessRemaining equals seven, then draw face
+                if (wordGuessGame.guessesRemaining === 7) {
                     hangmanCanvas.drawFace();
-                // Else if incorrect guesses equals two, then draw body line
-                } else if (wordGuessGame.numIncorrectGuesses === 2) {
+                    hangmanCanvas.drawSeven();
+                // Else if guessessRemaining equals six, then draw body line
+                } else if (wordGuessGame.guessesRemaining === 6) {
                     hangmanCanvas.drawBody();
-                // Else if incorrect guesses equals three, then draw right arm
-                } else if (wordGuessGame.numIncorrectGuesses === 3) {
+                    hangmanCanvas.drawSix();
+                // Else if guessessRemaining equals five, then draw right arm
+                } else if (wordGuessGame.guessesRemaining === 5) {
                     hangmanCanvas.drawRightArm();
-                // Else if incorrect guesses equals four, then draw left arm
-                } else if (wordGuessGame.numIncorrectGuesses === 4) {
+                    hangmanCanvas.drawFive();
+                // Else if guessessRemaining equals four, then draw left arm
+                } else if (wordGuessGame.guessesRemaining === 4) {
                     hangmanCanvas.drawLeftArm();
                     hangmanCanvas.drawStraightLineMouth();
-                // Else if incorrect guesses equals five, then draw right leg
-                } else if (wordGuessGame.numIncorrectGuesses === 5) {
-                hangmanCanvas.drawRightLeg();
-                // Else if incorrect guesses equals six, then draw left leg
-                } else if (wordGuessGame.numIncorrectGuesses === 6) {
-                hangmanCanvas.drawLeftLeg();
-                // Else if incorrect guesses equals 7, then draw noose
-                } else if (wordGuessGame.numIncorrectGuesses === 7) {
+                    hangmanCanvas.drawFour();
+                // Else if guessessRemaining equals five, then draw right leg
+                } else if (wordGuessGame.guessesRemaining === 3) {
+                    hangmanCanvas.drawRightLeg();
+                    hangmanCanvas.drawThree();
+                // Else if guessessRemaining equals six, then draw left leg
+                } else if (wordGuessGame.guessesRemaining === 2) {
+                    hangmanCanvas.drawLeftLeg();
+                    hangmanCanvas.drawTwo();
+                // Else if guessessRemaining equals 7, then draw noose
+                } else if (wordGuessGame.guessesRemaining === 1) {
                     hangmanCanvas.drawNoose();
                     hangmanCanvas.drawFrownyFace();
-                // Else if incorrect guesses equals 8, then draw dead face and lower body.
-                } else if (wordGuessGame.numIncorrectGuesses === 8) {
+                    hangmanCanvas.drawOne();
+                // Else if guessessRemaining equals 0, then draw dead face and lower body.
+                } else if (wordGuessGame.guessesRemaining === 0) {
                     hangmanCanvas.drawDeadFace();
                     hangmanCanvas.drawBodyLower();
                 }

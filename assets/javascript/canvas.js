@@ -55,11 +55,18 @@ var hangmanCanvas = {
         c.arc(103, 32, 0.5, 0, Math.PI * 2, false);
         c.fill();
         c.stroke();
+        // Reduce line thickness from 5 to 2
+        c.lineWidth = 2;
+        // Draw Number 8
+        c.beginPath();
+        c.arc(250, 50, 5, Math.PI * 2, false);
+        c.stroke();
+        c.beginPath();
+        c.arc(250, 60, 5, Math.PI * 2, false);
+        c.stroke();
     },
     // Function to draw face
     drawFace: function() {
-        // Reduce line thickness from 5 to 2
-        c.lineWidth = 2;
         // Draw Face Circle
         c.beginPath();
         c.arc(150, 100, 20, 0, Math.PI * 2, false);
@@ -198,6 +205,42 @@ var hangmanCanvas = {
         c.moveTo(150, 190);
         c.lineTo(120, 210);
         c.stroke();
+    },
+    // Draw number 7
+    drawSeven: function() {
+        // Clear number 8
+        c.clearRect(240, 40, 20, 30);
+        c.beginPath();
+        c.moveTo(240, 45);
+        c.lineTo(255, 45);
+        c.lineTo(240, 65);
+        c.stroke();
+    },
+    drawSix: function() {
+        // Clear number 7
+        c.clearRect(240, 40, 20, 30);
+        c.beginPath();
+        c.arc(250, 50, 5, Math.PI, false);
+        c.stroke();
+        c.beginPath();
+        c.moveTo(245, 50);
+        c.lineTo(245, 60);
+        c.stroke();
+        c.beginPath();
+        c.arc(250, 60, 5, Math.PI * 2, false);
+        c.stroke();
+    },
+    drawFour: function() {
+        console.log("Need to code 4")
+    },
+    drawThree: function() {
+        console.log("Need to code 3")
+    },
+    drawTwo: function() {
+        console.log("Need to code 2")
+    },
+    drawOne: function() {
+        console.log("Need to code 1")
     },
     // Function to reset Canvas for new round of game
     resetCanvas: function() {
