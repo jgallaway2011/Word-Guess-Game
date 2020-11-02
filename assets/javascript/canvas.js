@@ -59,10 +59,10 @@ var hangmanCanvas = {
         c.lineWidth = 2;
         // Draw Number 8
         c.beginPath();
-        c.arc(250, 50, 5, Math.PI * 2, false);
+        c.arc(250, 50, 5, 0, Math.PI * 2, false);
         c.stroke();
         c.beginPath();
-        c.arc(250, 60, 5, Math.PI * 2, false);
+        c.arc(250, 60, 5, 0, Math.PI * 2, false);
         c.stroke();
     },
     // Function to draw face
@@ -209,38 +209,92 @@ var hangmanCanvas = {
     // Draw number 7
     drawSeven: function() {
         // Clear number 8
-        c.clearRect(240, 40, 20, 30);
+        this.resetNumber();
         c.beginPath();
-        c.moveTo(240, 45);
+        c.moveTo(245, 45);
         c.lineTo(255, 45);
-        c.lineTo(240, 65);
+        c.lineTo(245, 65);
         c.stroke();
     },
+    // Draw number 6
     drawSix: function() {
         // Clear number 7
-        c.clearRect(240, 40, 20, 30);
+        this.resetNumber();
         c.beginPath();
-        c.arc(250, 50, 5, Math.PI, false);
+        c.arc(250, 50, 5, 0, Math.PI, true);
+        c.lineTo(245, 60);
+        c.arc(250, 60, 5, Math.PI, Math.PI * 3, false);
         c.stroke();
+    },
+    // Draw number 5
+    drawFive: function() {
+        // Clear number 6
+        this.resetNumber();
+        c.beginPath();
+        c.moveTo(255, 45);
+        c.lineTo(245, 45);
+        c.lineTo(245, 55);
+        c.lineTo(250, 55);
+        c.arc(250, 60, 5, Math.PI * 1.5, Math.PI * 0.5, false);
+        c.lineTo(245, 65);
+        c.stroke();
+    },
+    // Draw number 4
+    drawFour: function() {
+        // Clear number 5
+        this.resetNumber();
+        c.beginPath();
+        c.moveTo(245, 45);
+        c.lineTo(245, 55);
+        c.lineTo(255, 55);
+        c.moveTo(255, 45);
+        c.lineTo(255, 65);
+        c.stroke();
+    },
+    // Draw number 3
+    drawThree: function() {
+        // Clear number 4
+        this.resetNumber();
+        c.beginPath();
+        c.moveTo(245, 45);
+        c.lineTo(250, 45);
+        c.moveTo(247, 55);
+        c.lineTo(250, 55);
+        c.moveTo(245, 65);
+        c.lineTo(250, 65);
+        c.stroke();
+        c.beginPath();
+        c.arc(250, 50, 5, Math.PI * 1.5, Math.PI * 0.5, false);
+        c.stroke();
+        c.beginPath();
+        c.arc(250, 60, 5, Math.PI * 1.5, Math.PI * 0.5, false);
+        c.stroke();
+    },
+    // Draw number 2
+    drawTwo: function() {
+        // Clear number 3
+        this.resetNumber();
+        c.beginPath();
+        c.arc(250, 50, 5, Math.PI, 0, false);
+        c.lineTo(245, 65);
+        c.lineTo(255, 65);
+        c.stroke();
+    },
+    // Draw number 1
+    drawOne: function() {
+        // Clear number 2
+        this.resetNumber();
         c.beginPath();
         c.moveTo(245, 50);
-        c.lineTo(245, 60);
+        c.lineTo(250, 45);
+        c.lineTo(250, 65);
+        c.moveTo(245, 65);
+        c.lineTo(255, 65);
         c.stroke();
-        c.beginPath();
-        c.arc(250, 60, 5, Math.PI * 2, false);
-        c.stroke();
     },
-    drawFour: function() {
-        console.log("Need to code 4")
-    },
-    drawThree: function() {
-        console.log("Need to code 3")
-    },
-    drawTwo: function() {
-        console.log("Need to code 2")
-    },
-    drawOne: function() {
-        console.log("Need to code 1")
+    resetNumber: function() {
+        // Clear number
+        c.clearRect(240, 40, 20, 30);
     },
     // Function to reset Canvas for new round of game
     resetCanvas: function() {

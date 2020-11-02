@@ -281,6 +281,7 @@ function wordGuessGameLogic(letter) {
                 } else if (wordGuessGame.guessesRemaining === 0) {
                     hangmanCanvas.drawDeadFace();
                     hangmanCanvas.drawBodyLower();
+                    hangmanCanvas.resetNumber();
                 }
             }
             
