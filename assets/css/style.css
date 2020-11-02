@@ -21,7 +21,7 @@ body {
   
 /* Modal Content Box */
 .modal-content {
-    background-color: #fefefe;
+    background-color: #325a70;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
@@ -92,4 +92,14 @@ canvas {
   width: 38px;
   border: 1px solid black;
   margin-bottom: 1px;
+}
+
+#startNextRound,
+#finalScore,
+#playAgain {
+  background-color: #62dae8;
+}
+
+#quitGame {
+  background-color: #a53c43;
 }
