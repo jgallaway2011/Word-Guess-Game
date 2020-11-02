@@ -58,9 +58,7 @@ body {
 
 /* Add margin to top for spacing */
 #startOrQuitButtonDiv,
-#playAgainDiv,
-#guessesRemaining,
-#lettersGuessed {
+#playAgainDiv {
   margin-top: 10px;
 }
 
@@ -91,4 +89,6 @@ canvas {
 
 .btn-letter {
   background-color: #ee6969;
+  width: 38px;
+  border: 1px solid black;
 }
