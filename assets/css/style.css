@@ -44,26 +44,26 @@ body {
   }
 
 /* Center Text */
-#modalWordDiv,
-#currentWordDiv,
-#winOrLoseHeader,
-#gameOverHeader,
-#winsHeader,
-#lossesHeader,
-#startOrQuitButtonDiv,
-#playAgainDiv,
-#englishLetters {
+#modal-word-div,
+#current-word-div,
+#win-lose-header,
+#game-over-header,
+#wins-header,
+#losses-header,
+#start-quit-button-div,
+#play-again-div,
+#english-letters {
       text-align: center;
   }
 
 /* Add margin to top for spacing */
-#startOrQuitButtonDiv,
-#playAgainDiv {
+#start-quit-button-div,
+#play-again-div {
   margin-top: 10px;
 }
 
 /* Final Score button should not show until end of game */
-#finalScore {
+#final-score {
   display: none;
 }
 
@@ -77,7 +77,7 @@ canvas {
   height: 100%; */
 }
 
-#currentWord {
+#current-word-span {
   display: inline-block;
   background-color: #62dae8;
   margin-top: 10px;
@@ -94,12 +94,12 @@ canvas {
   margin-bottom: 1px;
 }
 
-#startNextRound,
-#finalScore,
-#playAgain {
+#start-next-round,
+#final-score,
+#play-again {
   background-color: #62dae8;
 }
 
-#quitGame {
+#quit-game {
   background-color: #a53c43;
 }

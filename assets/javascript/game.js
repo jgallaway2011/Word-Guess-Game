@@ -7,7 +7,7 @@
 import {hangmanCanvas} from "./canvas.js"
 
 // VARIABLES
-var hipsterWordDisplay = document.getElementById("currentWord");
+var hipsterWordDisplay = document.getElementById("current-word-span");
 
 //====================================================================================================================
 
@@ -89,7 +89,7 @@ var wordGuessGame = {
         // Displays loss total
         document.querySelector("#losses").innerHTML = "Losses: " + this.losses;
         // Displays guessesRemaining for current word
-        // document.querySelector("#guessesRemaining").innerHTML = "Guesses Remaining: " + this.guessesRemaining;
+        // document.querySelector("#guesses-remaining").innerHTML = "Guesses Remaining: " + this.guessesRemaining;
     },
 
     // Checks if user input is in the Enlgish letters
@@ -99,43 +99,30 @@ var wordGuessGame = {
 
     // Method to initialize new round of game
     initializeRound: function () {
-
         // Clear English letters from previous round
-        document.querySelector("#englishLetters").innerHTML = ""
-
+        document.querySelector("#english-letters").innerHTML = ""
         // Display English Letters
         this.englishLetters.forEach(function(letter) {
-            document.querySelector("#englishLetters").innerHTML += "<button type=\"button\" class=\"btn btn-letter\" id=\"" + letter + "\" value=\"" + letter + "\">" + letter + "</button>";
+            document.querySelector("#english-letters").innerHTML += "<button type=\"button\" class=\"btn btn-letter\" id=\"" + letter + "\" value=\"" + letter + "\">" + letter + "</button>";
         });
-
         // Add Click Event Listner to each letter to call wordGuessGameLogic function with respective letter
         this.englishLetters.forEach(function(letter) {
             document.getElementById(letter).addEventListener("click", function() {
                 wordGuessGameLogic(letter);
             });
         });
-
         // Selects hipsterWord to start new round of game
         this.selectHipsterWord();
-
         // Reset remaining guesses to 8
         this.guessesRemaining = 8;
-
         // Displays updated wins, losses, and guesses remaining
         this.gameTracker();
-
         // Displays word hidden on the document for the start of the game
         this.insertHipsterWord();
-
         // Clear letters guessed for each new round
         this.lettersGuessed = [];
-
         // Display empty letters guessed for new round
-        // document.getElementById("lettersGuessed").innerHTML = "Letters Guessed: " + wordGuessGame.lettersGuessed.join("  ");
-
-        // Reset incorrect guesses to zero
-        this.numIncorrectGuesses = 0;
-
+        // document.getElementById("letters-guessed").innerHTML = "Letters Guessed: " + wordGuessGame.lettersGuessed.join("  ");
         // Reset Canvas
         hangmanCanvas.resetCanvas();
     },
@@ -149,11 +136,11 @@ var wordGuessGame = {
         this.hipsterWords = ["SKATEBOARD", "MIXTAPE", "UNICORN", "VENMO", "TYPEWRITER", "CLICHE", "FORAGE", "OCCUPY", "SELFIES", "TOFU", "FLANNEL", 
         "FAM", "VINYL", "ETSY", "YOGA", "BREWERY", "BEER", "MEDITATION", "PABST", "BICYCLE", "ARTISAN", "ORGANIC", "DISTILLERY", "PINTEREST", "AESTHETIC", "CORNHOLE"];
         // Display Next Round button
-        document.getElementById("startNextRound").style.display = "inline-block";
+        document.getElementById("start-next-round").style.display = "inline-block";
         // Display Quit Game button
-        document.getElementById("quitGame").style.display = "inline-block";
+        document.getElementById("quit-game").style.display = "inline-block";
         // Hide Final Score button
-        document.getElementById("finalScore").style.display = "none";
+        document.getElementById("final-score").style.display = "none";
         // Intialize round of game
         this.initializeRound();
     }
@@ -167,7 +154,7 @@ wordGuessGame.initializeRound()
 
 // Listen for key down events on keyboard
 document.onkeydown = function(event) {
-    if (document.getElementById("winOrLoseModal").style.display !== "block" && document.getElementById("letterAlreadyGuessedModal").style.display !== "block" && document.getElementById("quitGameModal").style.display !== "block")  {
+    if (document.getElementById("win-lose-modal").style.display !== "block" && document.getElementById("letter-already-guessed-modal").style.display !== "block" && document.getElementById("quit-game-modal").style.display !== "block")  {
         // Call main game logic with keyboard letter
         wordGuessGameLogic(event.key.toUpperCase());
     }
@@ -175,47 +162,47 @@ document.onkeydown = function(event) {
 
 // When the user clicks anywhere outside of the Letter Already Guessed modal, close it
 window.onclick = function(event) {
-    if (event.target == document.getElementById("letterAlreadyGuessedModal")) {
-        document.getElementById("letterAlreadyGuessedModal").style.display = "none";
+    if (event.target == document.getElementById("letter-already-guessed-modal")) {
+        document.getElementById("letter-already-guessed-modal").style.display = "none";
     }
   }
 
-// When the user clicks on Next Round button, close the winOrLoseModal and initalize next round
-document.getElementById("startNextRound").onclick = function() {
-    // Close winOrLoseModal
-    document.getElementById("winOrLoseModal").style.display = "none";
+// When the user clicks on Next Round button, close the win-lose-modal and initalize next round
+document.getElementById("start-next-round").onclick = function() {
+    // Close win-lose-modal
+    document.getElementById("win-lose-modal").style.display = "none";
     // Start new round
     wordGuessGame.initializeRound();
   }
 
-// When the user clicks on Quit Game button, close the winOrLoseModal and open the quitGameModal
-document.getElementById("quitGame").onclick = function() {
-    // Close winorLoseModal
-    document.getElementById("winOrLoseModal").style.display = "none";
-    // Add wins to the quitGameModal
-    document.getElementById("winsHeader").innerHTML = "Wins: " + wordGuessGame.wins;
-    // Add losses to the quitGameModal
-    document.getElementById("lossesHeader").innerHTML = "Losses: " + wordGuessGame.losses;
-    // Display quitGameModal
-    document.getElementById("quitGameModal").style.display = "block";
+// When the user clicks on Quit Game button, close the win-lose-modal and open the quit-game-modal
+document.getElementById("quit-game").onclick = function() {
+    // Close win-lose-modal
+    document.getElementById("win-lose-modal").style.display = "none";
+    // Add wins to the quit-game-modal
+    document.getElementById("wins-header").innerHTML = "Wins: " + wordGuessGame.wins;
+    // Add losses to the quit-game-modal
+    document.getElementById("losses-header").innerHTML = "Losses: " + wordGuessGame.losses;
+    // Display quit-game-modal
+    document.getElementById("quit-game-modal").style.display = "block";
   }
 
-// When the user clicks on Final Score button, close the winOrLoseModal and open the quitGameModal
-document.getElementById("finalScore").onclick = function() {
-    // Close winorLoseModal
-    document.getElementById("winOrLoseModal").style.display = "none";
-    // Add wins to the quitGameModal
-    document.getElementById("winsHeader").innerHTML = "Wins: " + wordGuessGame.wins;
-    // Add losses to the quitGameModal
-    document.getElementById("lossesHeader").innerHTML = "Losses: " + wordGuessGame.losses;
-    // Display quitGameModal
-    document.getElementById("quitGameModal").style.display = "block";
+// When the user clicks on Final Score button, close the win-lose-modal and open the quit-game-modal
+document.getElementById("final-score").onclick = function() {
+    // Close win-lose-modal
+    document.getElementById("win-lose-modal").style.display = "none";
+    // Add wins to the quit-game-modal
+    document.getElementById("wins-header").innerHTML = "Wins: " + wordGuessGame.wins;
+    // Add losses to the quit-game-modal
+    document.getElementById("losses-header").innerHTML = "Losses: " + wordGuessGame.losses;
+    // Display quit-game-modal
+    document.getElementById("quit-game-modal").style.display = "block";
   }
 
-// When the user clicks on Play Again? button, close the quitGameModal and reset game.
-document.getElementById("playAgain").onclick = function() {
-    // Close the quitGameModal
-    document.getElementById("quitGameModal").style.display = "none";
+// When the user clicks on Play Again? button, close the quit-game-modal and reset game.
+document.getElementById("play-again").onclick = function() {
+    // Close the quit-game-modal
+    document.getElementById("quit-game-modal").style.display = "none";
     // Reset Game
     wordGuessGame.resetGame();
   }
@@ -230,7 +217,7 @@ function wordGuessGameLogic(letter) {
             // Add user selection to lettersGuessed array
             wordGuessGame.lettersGuessed.push(letter);
             // Reflect user most recent selection in DOM
-            // document.getElementById("lettersGuessed").innerHTML = "Letters Guessed: " + wordGuessGame.lettersGuessed.join("  ");
+            // document.getElementById("letters-guessed").innerHTML = "Letters Guessed: " + wordGuessGame.lettersGuessed.join("  ");
             // Remove visibility of button
             document.getElementById(letter.toString()).style.visibility = "hidden";
             // Loop through hipsterWord characters
@@ -241,7 +228,7 @@ function wordGuessGameLogic(letter) {
                         // Set array value at index i equal to user selection
                         wordGuessGame.hipsterWordHidden[i] = letter;
                         // Update DOM to reflect user correctly guessed a letter
-                        document.getElementById("currentWord").innerHTML = wordGuessGame.hipsterWordHidden.join("    ");
+                        document.getElementById("current-word-span").innerHTML = wordGuessGame.hipsterWordHidden.join("    ");
                     }
                 }
             } else {
@@ -292,22 +279,22 @@ function wordGuessGameLogic(letter) {
                 // Displays updated wins, losses, and guesses remaining
                 wordGuessGame.gameTracker();
                 // Header to say "You won!" in modal  
-                document.getElementById("winOrLoseHeader").innerHTML = "You won!"
-                // Add current word to winOrLoseModal
-                document.getElementById("modalWordDiv").innerHTML = wordGuessGame.hipsterWord;
+                document.getElementById("win-lose-header").innerHTML = "You won!"
+                // Add current word to win-lose-modal
+                document.getElementById("modal-word-div").innerHTML = wordGuessGame.hipsterWord;
                 // Add gif that assocciated with word
-                document.getElementById("modalGifDiv").innerHTML = "<img src=\"assets/media/" + wordGuessGame.hipsterWord.toLowerCase() + ".gif\" alt=\"" + wordGuessGame.hipsterWord.toLowerCase() + "\" width=\"100%\" height=\"auto\"></img>";
+                document.getElementById("modal-gif-div").innerHTML = "<img src=\"assets/media/" + wordGuessGame.hipsterWord.toLowerCase() + ".gif\" alt=\"" + wordGuessGame.hipsterWord.toLowerCase() + "\" width=\"100%\" height=\"auto\"></img>";
                 // If no words remaining in the hipsterWords array, then display a button for showing final score
                 if (wordGuessGame.hipsterWords.length === 0) {
                     // Hide Next Round button
-                    document.getElementById("startNextRound").style.display = "none";
+                    document.getElementById("start-next-round").style.display = "none";
                     // Hide Quit Game button
-                    document.getElementById("quitGame").style.display = "none";
+                    document.getElementById("quit-game").style.display = "none";
                     // Show Final Score button
-                    document.getElementById("finalScore").style.display = "inline-block";
+                    document.getElementById("final-score").style.display = "inline-block";
                 }
                 // Display Modal to nofity user won round
-                document.getElementById("winOrLoseModal").style.display = "block";
+                document.getElementById("win-lose-modal").style.display = "block";
             // If zero guesses remaining and not all letters of hidden word guessed, then:
             } else if (wordGuessGame.guessesRemaining === 0 && wordGuessGame.hipsterWordHidden.indexOf("_") !== -1) {
                 // Increase losses by 1
@@ -315,26 +302,26 @@ function wordGuessGameLogic(letter) {
                 // Displays updated wins, losses, and guesses remaining
                 wordGuessGame.gameTracker();
                 // Header to say "You lost!" in modal  
-                document.getElementById("winOrLoseHeader").innerHTML = "You lost!"
-                // Add current word to winOrLoseModal
-                document.getElementById("modalWordDiv").innerHTML = wordGuessGame.hipsterWord;
+                document.getElementById("win-lose-header").innerHTML = "You lost!"
+                // Add current word to win-lose-modal
+                document.getElementById("modal-word-div").innerHTML = wordGuessGame.hipsterWord;
                 // Add gif that assocciated with word
-                document.getElementById("modalGifDiv").innerHTML = "<img src=\"assets/media/" + wordGuessGame.hipsterWord.toLowerCase() + ".gif\" alt=\"" + wordGuessGame.hipsterWord.toLowerCase() + "\" width=\"100%\" height=\"auto\"></img>";
+                document.getElementById("modal-gif-div").innerHTML = "<img src=\"assets/media/" + wordGuessGame.hipsterWord.toLowerCase() + ".gif\" alt=\"" + wordGuessGame.hipsterWord.toLowerCase() + "\" width=\"100%\" height=\"auto\"></img>";
                 // If no words remaining in the hipsterWords array, then display a button for showing final score
                 if (wordGuessGame.hipsterWords.length === 0) {
                     // Hide Next Round button
-                    document.getElementById("startNextRound").style.display = "none";
+                    document.getElementById("start-next-round").style.display = "none";
                     // Hide Quit Game button
-                    document.getElementById("quitGame").style.display = "none";
+                    document.getElementById("quit-game").style.display = "none";
                     // Show Final Score button
-                    document.getElementById("finalScore").style.display = "inline-block";
+                    document.getElementById("final-score").style.display = "inline-block";
                 }
                 // Display Modal to nofity user won round
-                document.getElementById("winOrLoseModal").style.display = "block";
+                document.getElementById("win-lose-modal").style.display = "block";
             }
         } else {
             // Modal to notify user that this letter was already guessed
-            document.getElementById("letterAlreadyGuessedModal").style.display = "block";
+            document.getElementById("letter-already-guessed-modal").style.display = "block";
         }
     }
 }

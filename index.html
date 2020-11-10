@@ -21,14 +21,14 @@
   </nav>
   <div class="container.fluid no-gutters">
     <!-- <div class="row justify-content-center no-gutters">
-      <div class=col-4 id="guessesRemaining">
+      <div class=col-4 id="guesses-remaining">
       </div>
-      <div class=col-4 id="lettersGuessed">
+      <div class=col-4 id="letters-guessed">
       </div>
     </div> -->
     <div class="row no-gutters align-items-center">
-      <div class="col-md-6" id=currentWordDiv>
-        <span id="currentWord"></span>
+      <div class="col-md-6" id=current-word-div>
+        <span id="current-word-span"></span>
       </div>
       <div class="col-md-6">
         <canvas width="300" height="300">
@@ -37,29 +37,29 @@
       </div>
     </div>
     <div class="row justify-content-center no-gutters">
-      <div class=col-11 id="englishLetters">
+      <div class=col-11 id="english-letters">
       </div>
     </div>
   </div>
 
   <!-- The Win or Lose Modal -->
-  <div id="winOrLoseModal" class="modal">
+  <div id="win-lose-modal" class="modal">
 
     <!-- Win or Lose Modal content -->
     <div class="modal-content">
-      <h1 id="winOrLoseHeader"></h1>
-      <div id="modalWordDiv"></div>
-      <div id="modalGifDiv"></div>
-      <div id="startOrQuitButtonDiv">
-        <button type="button" class="btn btn-primary" id="startNextRound">Next Round</button>
-        <button type="button" class="btn btn-danger" id="quitGame">Quit</button>
-        <button type="button" class="btn btn-primary" id="finalScore">Final Score</button>
+      <h1 id="win-lose-header"></h1>
+      <div id="modal-word-div"></div>
+      <div id="modal-gif-div"></div>
+      <div id="start-quit-button-div">
+        <button type="button" class="btn btn-primary" id="start-next-round">Next Round</button>
+        <button type="button" class="btn btn-danger" id="quit-game">Quit</button>
+        <button type="button" class="btn btn-primary" id="final-score">Final Score</button>
       </div>
     </div>
   </div>
 
   <!-- Letter Already Guessed Modal -->
-  <div id="letterAlreadyGuessedModal" class="modal">
+  <div id="letter-already-guessed-modal" class="modal">
 
     <!-- Letter Already Guessed Modal content -->
     <div class="modal-content">
@@ -69,17 +69,17 @@
   </div>
 
   <!-- Quit Game Modal -->
-  <div id="quitGameModal" class="modal">
+  <div id="quit-game-modal" class="modal">
 
     <!-- Quit Game Modal content -->
     <div class="modal-content">
       <div>
-        <h1 id="gameOverHeader">GAME OVER</h1>
+        <h1 id="game-over-header">GAME OVER</h1>
       </div>
-      <h2 id="winsHeader"></h2>
-      <h2 id="lossesHeader"></h2>
-      <div id="playAgainDiv">
-        <button type="button" class="btn btn-primary" id="playAgain">Play Again?</button>
+      <h2 id="wins-header"></h2>
+      <h2 id="losses-header"></h2>
+      <div id="play-again-div">
+        <button type="button" class="btn btn-primary" id="play-again">Play Again?</button>
       </div>
     </div>
   </div>
