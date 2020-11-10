@@ -34,13 +34,13 @@ body {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    text-align: end;
   }
   
 .close:hover,
 .close:focus {
     color: black;
     text-decoration: none;
-    cursor: pointer;
   }
 
 /* Center Text */
@@ -52,7 +52,8 @@ body {
 #losses-header,
 #start-quit-button-div,
 #play-again-div,
-#english-letters {
+#english-letters,
+#letter-already-guessed-header {
       text-align: center;
   }
 

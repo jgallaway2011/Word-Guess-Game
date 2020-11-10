@@ -154,9 +154,13 @@ wordGuessGame.initializeRound()
 
 // Listen for key down events on keyboard
 document.onkeydown = function(event) {
+    // Only call main game logic if none of the modals are open
     if (document.getElementById("win-lose-modal").style.display !== "block" && document.getElementById("letter-already-guessed-modal").style.display !== "block" && document.getElementById("quit-game-modal").style.display !== "block")  {
-        // Call main game logic with keyboard letter
+        // Call main game logic with event.key
         wordGuessGameLogic(event.key.toUpperCase());
+    // Only use space bar to close letter Already Guessed Modal if it is open
+    } else if (document.getElementById("letter-already-guessed-modal").style.display === "block" && event.key === " ") {
+        document.getElementById("letter-already-guessed-modal").style.display = "none";
     }
 }
 
@@ -166,6 +170,12 @@ window.onclick = function(event) {
         document.getElementById("letter-already-guessed-modal").style.display = "none";
     }
   }
+
+// When the user clicks the x in the Letter Already Guessed modal, close it
+document.getElementsByClassName("close")[0].onclick = function() {
+    // Close Letter Already Guessed modal
+    document.getElementById("letter-already-guessed-modal").style.display = "none";
+}
 
 // When the user clicks on Next Round button, close the win-lose-modal and initalize next round
 document.getElementById("start-next-round").onclick = function() {
